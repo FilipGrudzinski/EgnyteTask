@@ -31,11 +31,17 @@
                                         <rect key="frame" x="0.0" y="0.0" width="166.5" height="30"/>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Download"/>
+                                        <connections>
+                                            <action selector="downloadWeatherButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ko9-vS-hLL"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NQj-FP-gAw">
                                         <rect key="frame" x="176.5" y="0.0" width="166.5" height="30"/>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Print"/>
+                                        <connections>
+                                            <action selector="printWeatherButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="d7k-9H-b3K"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -55,11 +61,17 @@
                                         <rect key="frame" x="0.0" y="0.0" width="166.5" height="30"/>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Download"/>
+                                        <connections>
+                                            <action selector="downloadFootBallButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Id8-I5-tot"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gig-ey-rpw">
                                         <rect key="frame" x="176.5" y="0.0" width="166.5" height="30"/>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Print"/>
+                                        <connections>
+                                            <action selector="printFootBallButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WU4-uN-ouC"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -93,6 +105,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="resultsLabel" destination="1xf-af-RJY" id="YK3-9i-XHc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
