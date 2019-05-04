@@ -8,10 +8,22 @@
 
 import UIKit
 
+struct Weather {
+    let dayNumber: String
+    let tempSpread: Double
+}
+struct FootballTeam {
+    let team: String
+    let difference: Double
+}
+
 class ViewController: UIViewController {
     @IBOutlet weak var resultsLabel: UILabel!
     private let weatherUrl = "http://codekata.com/data/04/weather.dat"
     private let footballUrl = "http://codekata.com/data/04/football.dat"
+    private var weatherArray = [Weather]()
+    private var FootballTeamArray = [FootballTeam]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -22,24 +34,44 @@ class ViewController: UIViewController {
     }
     
     @IBAction func printWeatherButton(_ sender: Any) {
+        printTheDay("weather.dat")
+    }
+    
+    @IBAction func downloadFootBallButton(_ sender: Any) {
+        downloadFileFromURL("football.dat", footballUrl)
+    }
+    
+    @IBAction func printFootBallButton(_ sender: Any) {
+        print("printFootBallButton")
         let documentsUrl:URL = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first as URL?)!
         let path = documentsUrl.appendingPathComponent("football.dat").path
         do {
             // Read an entire text file into an NSString.
-            let contents = try? NSString(contentsOfFile: path,
-                                         encoding: String.Encoding.ascii.rawValue)
-            print(contents!)
-            // Print all lines.
-            contents!.enumerateLines({ (line, stop) -> () in
-                print("Line = \(line)")
-            })
+            if let contents = try? NSString(contentsOfFile: path, encoding: String.Encoding.utf8.rawValue) {
+                let lines = contents.components(separatedBy: "\n")
+                for i in 0..<lines.count {
+                    let data = lines[i].split(separator: " ")
+                    if data.count > 8 {
+                        let day = String(data[1])
+                        guard let max = Double(self.removeSpecialCharsFromString(text: String(data[6]))) else {
+                            return
+                        }
+                        guard let min = Double(self.removeSpecialCharsFromString(text: String(data[8]))) else {
+                            return
+                        }
+                        let spread = max - min
+                        let new = FootballTeam(team: day, difference: spread)
+                        FootballTeamArray.append(new)
+                    }
+                    
+                }
+                 //print(FootballTeamArray)
+            }
+            
         }
-    }
-    @IBAction func downloadFootBallButton(_ sender: Any) {
-        downloadFileFromURL("football.dat", footballUrl)
-    }
-    @IBAction func printFootBallButton(_ sender: Any) {
-        print("printFootBallButton")
+        
+        let sortedArray = FootballTeamArray.sorted(by: { $0.difference < $1.difference })
+        resultsLabel.text = ("The team with the smallest difference is \(sortedArray[0].team)")
     }
     
     func downloadFileFromURL(_ fileName: String, _ url: String) {
@@ -79,6 +111,16 @@ class ViewController: UIViewController {
         }
     }
     
+    private func replaceExistingFile(_ fileName: String, _ url: String, _ destinationFileUrl: URL){
+        do {
+            try FileManager.default.removeItem(at: destinationFileUrl)
+            self.downloadFileFromURL(fileName, url)
+        } catch (let writeError) {
+            print("Error removing a file \(destinationFileUrl) : \(writeError)")
+        }
+        dismissPopUp()
+    }
+    
     private func successPopUp(_ message: String) {
         DispatchQueue.main.async {
             let alert = UIAlertController(title: message, message: "", preferredStyle: .alert)
@@ -103,17 +145,40 @@ class ViewController: UIViewController {
         }
     }
     
-    private func replaceExistingFile(_ fileName: String, _ url: String, _ destinationFileUrl: URL){
-        do {
-            try FileManager.default.removeItem(at: destinationFileUrl)
-            self.downloadFileFromURL(fileName, url)
-        } catch (let writeError) {
-            print("Error removing a file \(destinationFileUrl) : \(writeError)")
-        }
-        dismissPopUp()
-    }
-    
     private func dismissPopUp() {
         dismiss(animated: true, completion: nil)
+    }
+    
+    private func removeSpecialCharsFromString(text: String) -> String {
+        let okayChars = Set("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLKMNOPQRSTUVWXYZ1234567890+=().!_")
+        return text.filter {okayChars.contains($0) }
+    }
+    
+    private func printTheDay(_ filePathName: String) {
+        let documentsUrl:URL = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first as URL?)!
+        let path = documentsUrl.appendingPathComponent(filePathName).path
+        do {
+            // Read an entire text file into an NSString.
+            if let contents = try? NSString(contentsOfFile: path, encoding: String.Encoding.utf8.rawValue) {
+                let lines = contents.components(separatedBy: "\n")
+                for i in 2..<lines.count {
+                    if lines[i].count != 0 {
+                        let data = lines[i].split(separator: " ")
+                        let day = String(data[0])
+                        guard let max = Double(self.removeSpecialCharsFromString(text: String(data[1]))) else {
+                            return
+                        }
+                        guard let min = Double(self.removeSpecialCharsFromString(text: String(data[2]))) else {
+                            return
+                        }
+                        let spread = max - min
+                        let new = Weather(dayNumber: day, tempSpread: spread)
+                        weatherArray.append(new)
+                    }
+                }
+            }
+        }
+        let sortedArray = weatherArray.sorted(by: { $0.tempSpread < $1.tempSpread })
+        resultsLabel.text = ("Day with the smallest temperature spread is \(sortedArray[0].dayNumber)")
     }
 }
