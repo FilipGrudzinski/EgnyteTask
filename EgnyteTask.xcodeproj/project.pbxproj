@@ -14,6 +14,7 @@
 		14407534227B0FB00018F45A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14407532227B0FB00018F45A /* LaunchScreen.storyboard */; };
 		1440753C227E06CC0018F45A /* FileDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1440753B227E06CC0018F45A /* FileDownloader.swift */; };
 		1440753E227E0B460018F45A /* DataPrinter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1440753D227E0B460018F45A /* DataPrinter.swift */; };
+		14407540227E1EE80018F45A /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1440753F227E1EE80018F45A /* Structs.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		14407535227B0FB00018F45A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1440753B227E06CC0018F45A /* FileDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDownloader.swift; sourceTree = "<group>"; };
 		1440753D227E0B460018F45A /* DataPrinter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPrinter.swift; sourceTree = "<group>"; };
+		1440753F227E1EE80018F45A /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				14407535227B0FB00018F45A /* Info.plist */,
 				1440753B227E06CC0018F45A /* FileDownloader.swift */,
 				1440753D227E0B460018F45A /* DataPrinter.swift */,
+				1440753F227E1EE80018F45A /* Structs.swift */,
 			);
 			path = EgnyteTask;
 			sourceTree = "<group>";
@@ -143,6 +146,7 @@
 			files = (
 				1440753C227E06CC0018F45A /* FileDownloader.swift in Sources */,
 				1440752C227B0FAE0018F45A /* ViewController.swift in Sources */,
+				14407540227E1EE80018F45A /* Structs.swift in Sources */,
 				1440753E227E0B460018F45A /* DataPrinter.swift in Sources */,
 				1440752A227B0FAE0018F45A /* AppDelegate.swift in Sources */,
 			);

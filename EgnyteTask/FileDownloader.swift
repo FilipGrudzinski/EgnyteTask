@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FileDownloader: DataPrinter {
+class FileDownloader: ViewController {
     func downloadFileFromURL(_ fileName: String, _ url: String) {
         // Create destination URL
         let destinationFileUrl = documentsUrl.appendingPathComponent(fileName)
@@ -39,7 +39,7 @@ class FileDownloader: DataPrinter {
     private func saveItem(_ tempLocalUrl: URL, _ destinationFileUrl: URL) {
         do {
             try FileManager.default.copyItem(at: tempLocalUrl, to: destinationFileUrl)
-            successPopUp("Successfully saved")
+            self.successPopUp("Successfully saved")
         } catch (let writeError) {
             print("Error creating a file \(destinationFileUrl) : \(writeError)")
         }
@@ -48,7 +48,7 @@ class FileDownloader: DataPrinter {
     private func replaceExistingFile(_ fileName: String, _ url: String, _ destinationFileUrl: URL){
         do {
             try FileManager.default.removeItem(at: destinationFileUrl)
-            //self.downloadFileFromURL(fileName, url)
+            self.downloadFileFromURL(fileName, url)
         } catch (let writeError) {
             print("Error removing a file \(destinationFileUrl) : \(writeError)")
         }
@@ -62,7 +62,7 @@ class FileDownloader: DataPrinter {
             
             alert.addAction(okAction)
             
-            self.present(alert, animated: true, completion: nil)
+            UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
         }
     }
     
@@ -75,7 +75,7 @@ class FileDownloader: DataPrinter {
             alert.addAction(yesAction)
             alert.addAction(noAction)
             
-            self.present(alert, animated: true, completion: nil)
+            UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
         }
     }
     
